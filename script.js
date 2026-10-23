@@ -1,0 +1,24 @@
+
+
+function sayHello() {
+    alert("Привіт! Рада бачити тебе на моєму сайті 💗");
+}
+
+function handleSubmit(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    const subject = encodeURIComponent("Повідомлення з сайту");
+    const body = encodeURIComponent(
+        "Ім'я: " + name + "\n" +
+        "Email: " + email + "\n\n" +
+        "Повідомлення:\n" + message
+    );
+
+    window.location.href =
+        "mailto:hanna.holban@gmail.com?subject=" +
+        subject + "&body=" + body;
+}
