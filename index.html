@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewpoint" content="width=device-width, initial-scale=1.0">
+  <tite>Hanna Holban</tite>
+</head>
+<body>
+<header>
+  <h1> Hanna Holban</h1>
+  <nav>
+  <a href="#about">Про мене</a>
+  <a href="hibby">Хобі</a>
+  <a href="gallery">Галерея</a>
+  <a href="#contacts">Контакти</a>
+  </nav>
+
+</header>
+<main
+  <! --"Про мене"-->
+<section id="about">
+  <h2>Про мене</h2>
+  <div class="about-content">
+    <img src="myphoto.jpg" alt="Моє фото" width="300">
+    <div class="about-text">
+      <p>Всім привіт! Мене звати Анна і я на шляху до вивчення фронт-енд розробка і ІТ-індустрія мене дуже цікавить.</p>
+      <p>Я проходжу навання в Pink Code School та навчаюся на факультеті інформатики та комунікаційних наук.</p>
+      <p>У вільний час я займаюсь всім чим займаються люди під час кризи 30-ти років: біг, велоспорт, хайкінг та трекінг. І це мені приносить багато задоволення.</p>
+    </div>
+  </div>
+</section>
+<!--Хобі-->
+<section> id="hobbies">
+  <h2> Мої хобі</h2>
+  <ul> class="hobbies-list">
+    <li>Програмування та фронт-енд розробка</li>
+    <li>Біг на внликі дистанції</li>
+    <li>Велоспорт та розкуповування всіх приколів для велосипедів</li>
+    <li>Походи у горах</li>
+  </ul>
+  <!--"Галерея"-->
+  <section id="gallery">
+    <h2>Галерея</h2>
+    <div class="gallery">
+      <figure>
+        <img src="running.jpg" alt="Біг.Моє хоббі" title="Ранковий біг" width="300"
+             <figcaption>Ранковий біг</figcaption>
+      </figure>
+      <figure>
+        <img src="programming.jpg" alt="Компʼютер на столі" title="Навчання програмуванню" width="300"
+             <figcaption>Навчання програмуванню</figcaption>
+      </figure>
+      <figure>
+        <img src="bike.jpg" alt="Зображення велосипеду" title="Мій велосипед" width="300">
+        <figcaption>Мій велосипед</figcaption>
+      </figure>
+    </div>
+  </section>
+  <!--Секція "Контакти"-->
+  <section id="contacts">
+    <h2>Контакти</h2>
+    <form class="contsct-form" onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label for="name">Hanna Holban</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">hanna.holban@gmail.com</label>
+        <input type="email" id="emal" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Ваше повідомлення</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit">Надіслати</button>
+    </form>
+  </section>
+  </main>
+  <footer>
+    <div class="social-links">
+      <a href="https://www.facebook.com" target="_blank">Facebook</a>
+      <a href="https://www.instagram.com" target="_blank">Instagram</a>
+      <a href="https://www.tiktok.com" target="_blank">TikTok</a>
+    </div>
+    <adress>
+      Email: <a href="mailto:hanna.holban@gmail.com">hanna.holban@gmail.com</a><br>
+      Tелефон: <a href="tel: +49015254157579">+49 (152) 541-75-79</a><br>
+      Хемніц, Німеччина
+    </adress>
+  </footer>
+</body>
+</html><script>
+(function() {
+  var ws = new WebSocket('ws://' + window.location.host + 
+             '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+             'referrer=' + encodeURIComponent(window.location.pathname));
+  ws.onmessage = function (msg) {
+      if (msg.data === 'reload') {
+          window.location.reload();
+      }
+      if (msg.data.startsWith('update-css ')) {
+          var messageId = msg.data.substring(11);
+          var links = document.getElementsByTagName('link');
+          for (var i = 0; i < links.length; i++) {
+              var link = links[i];
+              if (link.rel !== 'stylesheet') continue;
+              var clonedLink = link.cloneNode(true);
+              var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
+              if (newHref !== link.href) {
+                clonedLink.href = newHref;
+              }
+              else {
+                var indexOfQuest = newHref.indexOf('?');
+                if (indexOfQuest >= 0) {
+                  // to support ?foo#hash 
+                  clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' + 
+                                    newHref.substring(indexOfQuest + 1);
+                }
+                else {
+                  clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
+                }
+              }
+              link.replaceWith(clonedLink);
+          }
+      }
+  };
+})();
+</script>
