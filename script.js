@@ -22,3 +22,25 @@ function handleSubmit(event) {
         "mailto:hanna.holban@gmail.com?subject=" +
         subject + "&body=" + body;
 }
+const header = document.querySelector("#site-header");
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const header = document.querySelector("#site-header");
+
+    if (!header) {
+        console.error("Header не знайдено!");
+        return;
+    }
+
+    window.addEventListener("scroll", function () {
+
+        if (window.scrollY > 80) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
+
+    });
+
+});

@@ -159,6 +159,30 @@ footer {
     color: #98627d;
 }
 
+/* Плавне зменшення header */
+header {
+    transition: padding 0.3s ease;
+}
+
+header h1 {
+    transition: font-size 0.3s ease, margin 0.3s ease;
+}
+
+/* Коли сторінку прокручено */
+header.scrolled {
+    padding: 8px 8%;
+}
+
+header.scrolled h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* Приховуємо меню */
+header.scrolled nav {
+    display: none;
+}
+
 /* Для телефона */
 @media (max-width: 700px) {
     header {
@@ -181,4 +205,14 @@ footer {
     h1 {
         font-size: 34px;
     }
+
+    header.scrolled {
+        padding: 8px 15px;
+    }
+
+    header.scrolled h1 {
+        font-size: 24px;
+    }
 }
+
+
